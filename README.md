@@ -30,6 +30,7 @@ July – September	Q3
 October – December	Q4
 
 <h1>🧾 Example (Before → After)</h1>
+<div class="card" role="region" aria-labelledby="table-title">
 <table aria-describedby="table-title">
       <thead>
         <tr>
@@ -56,7 +57,7 @@ October – December	Q4
         </tr>
       </tbody>
     </table>
-
+</div>
 <h1>🛠️ Tools Used</h1>
 
 n8n for workflow automation
