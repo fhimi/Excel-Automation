@@ -30,11 +30,32 @@ July – September	Q3
 October – December	Q4
 
 <h1>🧾 Example (Before → After)</h1>
-Original Date	Difference (Days)	Trimester
-2024-01-15	297	Q1
-2024-05-02	190	Q2
-2024-08-11	89	Q3
-2024-11-23	10	Q4
+<table aria-describedby="table-title">
+      <thead>
+        <tr>
+          <th scope="col">Month Range</th>
+          <th scope="col">Trimester</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>January – March</td>
+          <td class="trimester"><strong>Q1</strong></td>
+        </tr>
+        <tr>
+          <td>April – June</td>
+          <td class="trimester"><strong>Q2</strong></td>
+        </tr>
+        <tr>
+          <td>July – September</td>
+          <td class="trimester"><strong>Q3</strong></td>
+        </tr>
+        <tr>
+          <td>October – December</td>
+          <td class="trimester"><strong>Q4</strong></td>
+        </tr>
+      </tbody>
+    </table>
 
 <h1>🛠️ Tools Used</h1>
 
