@@ -1,4 +1,4 @@
-#📊 Automation Workflow: Date Difference & Trimester Calculation
+📊 #Automation Workflow: Date Difference & Trimester Calculation
 
 This workflow reads a list of dates from a spreadsheet, calculates the number of days between each date and today, and determines which trimester of the year each date belongs to. The results are written into new columns within the same dataset.
 
