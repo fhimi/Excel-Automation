@@ -1,4 +1,4 @@
-📊 #Automation Workflow: Date Difference & Trimester Calculation
+📊 <h1>Automation Workflow: Date Difference & Trimester Calculation</h1>
 
 This workflow reads a list of dates from a spreadsheet, calculates the number of days between each date and today, and determines which trimester of the year each date belongs to. The results are written into new columns within the same dataset.
 
@@ -52,7 +52,7 @@ function getTrimester(date) {
   const month = date.getMonth() + 1;
   if (month >= 1 && month <= 3) return "Q1";
   if (month >= 4 && month <= 6) return "Q2";
-  if (month >= 7 && month <= 9) return "Q3";
+  if (month >= 7 && month = 9) return "Q3";
   return "Q4";
 }
 
