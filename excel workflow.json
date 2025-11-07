@@ -1,0 +1,167 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -608,
+        -96
+      ],
+      "id": "dfece3d7-925d-4960-a872-f81edf799591",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "fileSelector": "/data/DATES.xlsx",
+        "options": {
+          "fileExtension": "xlsx",
+          "fileName": "DATES"
+        }
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        -336,
+        -96
+      ],
+      "id": "e40fa78e-3dfa-4dd4-9151-34066fe5249f",
+      "name": "Read/Write Files from Disk",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "options": {
+          "headerRow": true,
+          "includeEmptyCells": true
+        }
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -96
+      ],
+      "id": "e84d1530-27a3-43e8-b0d3-00fb658d3b54",
+      "name": "Extract from File",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all();\nconst today = new Date();\n\nfunction parseDate(value) {\n  if (!value) return null;\n\n  // If Excel serial number (integer days since 1899-12-30)\n  if (typeof value === 'number') {\n    return new Date((value - 25569) * 86400 * 1000);\n  }\n\n  // If already a JS Date\n  if (value instanceof Date && !isNaN(value)) {\n    return value;\n  }\n\n  // Convert dd/mm/yyyy to JS Date\n  if (typeof value === 'string') {\n    const parts = value.split('/');\n    if (parts.length === 3) {\n      const [day, month, year] = parts;\n      return new Date(year, month - 1, day);\n    }\n  }\n\n  return null;\n}\n\nconst results = rows.map(item => {\n  const dateString = item.json[\"Date\"];\n  const dateValue = parseDate(dateString);\n\n  const diffMonths =\n    (today.getFullYear() - dateValue.getFullYear()) * 12 +\n    (today.getMonth() - dateValue.getMonth());\n\n  let status = \"\";\n\n  if (today > dateValue) {\n    status = \"périmé\";\n  } else if (diffMonths >= 12) {\n    status = \"12 months\";\n  } else if (diffMonths >= 9) {\n    status = \"9 months\";\n  } else if (diffMonths >= 6) {\n    status = \"6 months\";\n  } else if (diffMonths >= 3) {\n    status = \"3 months\";\n  } else {\n    //status = `still ${(-1)* diffMonths} months`;\n    if(diffMonths == 0){ status= 'this months' }\n    if(diffMonths<0 && diffMonths>=(-3)){status = 'bi3ny t7awa'}\n    if(diffMonths<(-3) && diffMonths>=(-6)){status = 'mazal 6 mois'}\n    if(diffMonths<(-6) && diffMonths>=(-9)){status = 'mazal 9 mois'}\n    if(diffMonths<(-9) && diffMonths>=(-12)){status = 'mazal 12 mois'}\n    if(diffMonths <(-12)){status = 'ghayarha mazal 3lia l7al'}\n  }\n\n  return {\n    json: {\n      Date: dateString,\n      Difference: diffMonths,\n      status: status\n    }\n  };\n});\n\nreturn results;\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        -32
+      ],
+      "id": "3541aff7-03dd-4148-ab3d-c91ae8e935f9",
+      "name": "Code in JavaScript",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "xlsx",
+        "options": {
+          "fileName": "Result",
+          "sheetName": "here i am bitch"
+        }
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        80,
+        176
+      ],
+      "id": "9e8c89b9-2ffb-4c98-b45d-dc0b87b20dac",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/data/result.xlsx",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        352,
+        128
+      ],
+      "id": "20d76ff1-4f78-4b26-b770-5b8256a86942",
+      "name": "Read/Write Files from Disk1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "e980ce38-4c38-456a-97b1-b979583ac6cd",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cc5396fd5de66dd273a188344c9d867b7f3378279ec51fdf3ae71e86714b20ef"
+  },
+  "id": "yy6I0Kr9MWLlSqKX",
+  "tags": []
+}
