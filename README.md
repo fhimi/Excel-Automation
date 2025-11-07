@@ -2,7 +2,7 @@
 
 This workflow reads a list of dates from a spreadsheet, calculates the number of days between each date and today, and determines which trimester of the year each date belongs to. The results are written into new columns within the same dataset.
 
-<h1>✅ What This Workflow Does</h1>h1>
+<h1>✅ What This Workflow Does</h1>
 
 Reads a spreadsheet containing a column of dates.
 
@@ -14,7 +14,7 @@ Determines the trimester (Q1, Q2, Q3, or Q4) based on the month of the date.
 
 Writes both results into new columns in the same row.
 
-<h1>🏗️ Workflow Logic</h1>h1>
+<h1>🏗️ Workflow Logic</h1>
 Step	Description
 1	Read the input Excel/CSV file
 2	Parse date column into proper date objects
@@ -22,7 +22,7 @@ Step	Description
 4	Detect trimester based on month
 5	Output updated dataset
 
-<h1>🧮 Trimester Rules</h1>h1>
+<h1>🧮 Trimester Rules</h1>
 Month Range	Trimester
 January – March	Q1
 April – June	Q2
@@ -36,7 +36,7 @@ Original Date	Difference (Days)	Trimester
 2024-08-11	89	Q3
 2024-11-23	10	Q4
 
-#🛠️ Tools Used
+<h1>🛠️ Tools Used</h1>
 
 n8n for workflow automation
 
